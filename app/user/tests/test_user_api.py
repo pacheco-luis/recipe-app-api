@@ -20,7 +20,7 @@ def create_user(**params):
 
 
 class PublicUserApiTests(TestCase):
-    """Test the public features of the userAPI."""
+    """Test the public features of the user API."""
 
     def setUp(self):
         self.client = APIClient()
@@ -54,10 +54,10 @@ class PublicUserApiTests(TestCase):
     def test_password_too_short_error(self):
         """Test an error is returned if password less than 5 characters."""
         payload = {
-                'email': 'test@example.com',
-                'password': 'pw',
-                'name': 'Test Name',
-            }
+            'email': 'test@example.com',
+            'password': 'pw',
+            'name': 'Test Name',
+        }
         res = self.client.post(CREATE_USER_URL, payload)
 
         self.assertEqual(res.status_code, status.HTTP_400_BAD_REQUEST)
@@ -85,8 +85,8 @@ class PublicUserApiTests(TestCase):
         self.assertEqual(res.status_code, status.HTTP_200_OK)
 
     def test_create_token_bad_credentials(self):
-        """Test returns errpr if credemtials invalid."""
-        create_user(email='test@example.com', password='goodpass123')
+        """Test returns error if credentials invalid."""
+        create_user(email='test@example.com', password='goodpass')
 
         payload = {'email': 'test@example.com', 'password': 'badpass'}
         res = self.client.post(TOKEN_URL, payload)

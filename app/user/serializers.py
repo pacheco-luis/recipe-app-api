@@ -19,7 +19,7 @@ class UserSerializer(serializers.ModelSerializer):
         extra_kwargs = {'password': {'write_only': True, 'min_length': 5}}
 
     def create(self, validated_data):
-        """Create a return a user with encrypted password."""
+        """Create and return a user with encrypted password."""
         return get_user_model().objects.create_user(**validated_data)
 
     def update(self, instance, validated_data):
@@ -46,7 +46,6 @@ class AuthTokenSerializer(serializers.Serializer):
         """Validate and authenticate the user."""
         email = attrs.get('email')
         password = attrs.get('password')
-
         user = authenticate(
             request=self.context.get('request'),
             username=email,
